@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Player {
     Scanner in = new Scanner(System.in);
 
-     String name;
-     int score = 0;
+     public String name;
+     public int score = 0;
 
     public void setName() {
         this.name = in.nextLine();
