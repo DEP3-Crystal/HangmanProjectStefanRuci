@@ -1,5 +1,5 @@
-import dao.Words;
 import model.Player;
+import model.Word;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -9,9 +9,9 @@ public class Main {
     static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        Words word;
+        Word word;
         Player player;
-//        System.out.println(Words.words);
+        char charChose = 'n';
         System.out.println(" WELCOME TO HANGMAN GAME \n");
         do {
             playerMenu();
@@ -19,7 +19,7 @@ public class Main {
             switch (chose) {
                 case 1:
                     player = new Player();
-                    word = new Words();
+                    word = new Word();
                     word.setWord();
                     System.out.println("Set a name : ");
                     player.setName();
@@ -30,8 +30,37 @@ public class Main {
                             word.setWord();
                         } else if (chose == 2) {
                             player.guessChar(word);
+                            player.playerStatus(word);
+                            System.out.println("Do you want to type another letter ?y/n Y/N");
+                            charChose = in.next().charAt(0);
+
+
+                            while (charChose == 'y' || charChose == 'Y') {
+                                if(!word.mistakesValidation()){
+                                    break;
+                                }
+                                player.guessChar(word);
+                                player.playerStatus(word);
+
+                                System.out.println("Do you want to guess another letter ?y/n Y/N");
+                                charChose = in.next().charAt(0);
+                            }
                         } else if (chose == 3) {
+
                             player.guessWord(word);
+                            player.playerStatus(word);
+                            System.out.println("Do you want to guess another word ?y/n Y/N");
+                            charChose = in.next().charAt(0);
+                            while (charChose == 'y' || charChose == 'Y') {
+                                if(!word.mistakesValidation()){
+                                    break;
+                                }
+                                player.playerStatus(word);
+                                player.guessWord(word);
+                                System.out.println("Do you want to type another letter ?y/n Y/N");
+                                charChose = in.next().charAt(0);
+
+                            }
                         } else {
                             System.out.println("Enter a valid number :");
                         }
@@ -54,8 +83,7 @@ public class Main {
 
     public static void menuWord() {
         System.out.println("PRESS :\n1->CHOSE TO Another  WORD \n2->GUESS A CHAR  \n3->GUESS A WORD  \n0->GET OUT OF THE PROGRAM");
-        chose= in.nextInt();
-
+        chose = in.nextInt();
     }
 
 }

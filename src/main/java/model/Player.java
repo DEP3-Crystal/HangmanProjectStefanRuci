@@ -1,8 +1,4 @@
 package model;
-
-import dao.Words;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Player {
@@ -16,13 +12,13 @@ public class Player {
     }
 
 
-    public void guessChar(Words word ) {
+    public void guessChar(Word word ) {
         System.out.println("Guess a letter : ");
         char charGuessed = in.next().charAt(0);
         word.checkCharInWord(charGuessed);
     }
 
-    public void guessWord(Words word ) {
+    public void guessWord(Word word ) {
         System.out.println("Guess a word : ");
         String wordGuessed=in.next();
         if (word.checkWord(wordGuessed)) {
@@ -33,20 +29,21 @@ public class Player {
         } else word.mistakes++;
     }
 
-    public void playerStatus(Words word) {
+    public void playerStatus(Word word) {
         if (word.mistakesValidation()) {
             setScore(word);
-            System.out.println("\t\t Player Status :" + name + "\n\n  Score :" + score + " \t\t\t Mistakes : " + word.mistakes + "\n\n" +
-                    "\t  Word : " + word.word + "  "+"\t Masked Word : " + word.maskedWord + " \n\n\n");
+            System.out.println("\t\t Player Status : name -> " + name.toUpperCase() + "\n\n  Score :" + score + " \t\t\t Mistakes : " + word.mistakes + "\n\n" +
+                    "\tWord : " + word.word + "  "+"\tMasked Word : " + word.maskedWord + " \n\n\n");
         }
         else{
-            System.out.println("You lose ");
+            System.out.println("You lose \nThe word to be found was : "+word.word);
+        word.setWord();
         }
 
 
     }
 
-    public void setScore(Words word ) {
+    public void setScore(Word word ) {
         if (word.wordValidation()) {
             score++;
         }
