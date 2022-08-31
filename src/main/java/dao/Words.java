@@ -15,18 +15,12 @@ public class Words {
     private String path;
 
     public Words(String path) throws IOException {
-        setWords(path);
-    }
-
-    void setWords(String path) throws IOException {
         try {
             Path p = Paths.get(path);
             Stream<String> lines = Files.lines(p);
             words = lines.filter(e -> e.length() > 5).collect(Collectors.toList());
-        }catch (InvalidPathException e){
+        } catch (InvalidPathException e) {
             e.printStackTrace();
         }
     }
-
-
 }
