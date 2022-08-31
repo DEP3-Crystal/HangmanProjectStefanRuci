@@ -1,4 +1,6 @@
 # HangmanProjectStefanRuci
+
+## Specifications 
 ![img.png](img.png)
 
 
