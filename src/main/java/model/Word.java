@@ -14,8 +14,8 @@ public class Word extends Words {
     public char[] maskedWordChar;
     public int mistakes = 0;
 
-    public Word() throws IOException {
-        super();
+    public Word(String path) throws IOException {
+        super(path);
     }
 
     public void setWord() {

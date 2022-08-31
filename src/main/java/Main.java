@@ -19,7 +19,7 @@ public class Main {
             switch (chose) {
                 case 1:
                     player = new Player();
-                    word = new Word();
+                    word = new Word("src/main/resources/words.txt");
                     word.setWord();
                     System.out.println("Set a name : ");
                     player.setName();
@@ -46,7 +46,6 @@ public class Main {
                                 charChose = in.next().charAt(0);
                             }
                         } else if (chose == 3) {
-
                             player.guessWord(word);
                             player.playerStatus(word);
                             System.out.println("Do you want to guess another word ?y/n Y/N");
@@ -55,11 +54,10 @@ public class Main {
                                 if(!word.mistakesValidation()){
                                     break;
                                 }
-                                player.playerStatus(word);
                                 player.guessWord(word);
+                                player.playerStatus(word);
                                 System.out.println("Do you want to type another letter ?y/n Y/N");
                                 charChose = in.next().charAt(0);
-
                             }
                         } else {
                             System.out.println("Enter a valid number :");
