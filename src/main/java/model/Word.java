@@ -13,6 +13,7 @@ public class Word extends Words {
 
     public char[] maskedWordChar;
     public int mistakes = 0;
+    public int attemptsNrRemain=11;
 
     public Word(String path) throws IOException {
         super(path);
@@ -30,10 +31,6 @@ public class Word extends Words {
         maskedWordChar = maskedWord.toCharArray();
     }
 
-    public boolean checkWord(String guessWord) {
-        return Objects.equals(guessWord, word);
-    }
-
     public void checkCharInWord(char guesschar) {
         boolean flag = false;
         for (int i = 0; i < word.length(); i++) {
@@ -46,6 +43,7 @@ public class Word extends Words {
         }
         if (!flag) {
             mistakes++;
+            attemptsNrRemain--;
         }
     }
 
@@ -53,12 +51,12 @@ public class Word extends Words {
         maskedWord = String.valueOf(maskedWordChar);
     }
 
-    public boolean wordValidation() {
+    public boolean wonValidation() {
         return Objects.equals(maskedWord, this.word);
     }
 
-    public boolean mistakesValidation() {
+    public boolean testMistakes() {
 
-        return mistakes <= this.word.length();
+        return mistakes <= 11;
     }
 }
