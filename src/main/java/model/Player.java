@@ -1,5 +1,7 @@
 package model;
 import  cdn.Collors;
+
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Player {
@@ -26,7 +28,7 @@ public class Player {
     public void guessWord(Word word) {
         System.out.println("Guess a word : ");
         String wordGuessed = in.next();
-        if (word.wonValidation()) {
+        if (Objects.equals(wordGuessed, word.word)) {
             word.maskedWordChar = wordGuessed.toCharArray();
             word.replaceCharInString();
             System.out.println("congrats you won");
@@ -35,6 +37,10 @@ public class Player {
             word.mistakes++;
             word.attemptsNrRemain--;
         }
+    }
+    public  void  typeAgain(String thing){
+        System.out.println("Do you want to type another " +thing+
+                " ?y/n Y/N");
     }
 
     public void playerStatus(Word word) {

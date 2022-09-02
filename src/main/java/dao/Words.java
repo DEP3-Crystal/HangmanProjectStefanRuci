@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 public class Words {
     public List<String> words = new ArrayList<>();
-    private String path;
 
-    public Words(String path) throws IOException {
+
+    public Words() throws IOException {
         try {
-            Path p = Paths.get(path);
+            Path p = Paths.get("src/main/resources/words.txt");
             Stream<String> lines = Files.lines(p);
             words = lines.filter(e -> e.length() > 5).collect(Collectors.toList());
         } catch (InvalidPathException e) {

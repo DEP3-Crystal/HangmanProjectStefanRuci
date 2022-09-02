@@ -15,8 +15,8 @@ public class Word extends Words {
     public int mistakes = 0;
     public int attemptsNrRemain=11;
 
-    public Word(String path) throws IOException {
-        super(path);
+    public Word() throws IOException {
+        super();
     }
 
     public void setWord() {
