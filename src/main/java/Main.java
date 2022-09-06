@@ -3,6 +3,7 @@ import model.Player;
 import model.Word;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,15 +13,21 @@ public class Main {
         Player player = new Player();
         Word word = new Word();
         Scanner in = new Scanner(System.in);
-        int chose;
         System.out.println(" WELCOME TO HANGMAN GAME \n");
         do {
             GameController.playerMenu();
-            chose = in.nextInt();
-            GameController.playTheGame(chose, player, word);
+            if (GameController.chose==1){
+                GameController.playTheGame(GameController.chose, player, word);
+            }
             System.out.println("Do you want to start playing like another user? press 1 or 0 to exit");
-            chose = in.nextInt();
-        } while (chose != 0);
+            try {
+                GameController.chose=in.nextInt();
+            }
+            catch (InputMismatchException e){
+               GameController.errorInputMessage();
+               GameController.playerMenu();
+            }
+        } while (GameController.chose != 0);
 
     }
 

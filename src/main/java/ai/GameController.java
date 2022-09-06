@@ -4,23 +4,25 @@ import cdn.Collors;
 import model.Player;
 import model.Word;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 public class GameController {
+    public static int chose=0;
+
     static Scanner in = new Scanner(System.in);
     public static void playTheGame(int chose, Player player, Word word) {
         char charChose;
-        switch (chose) {
+        GameController.chose =chose;
+        switch (GameController.chose) {
             case 1:
                 wordReset(word);
                 System.out.println("Set a name : ");
                 player.setName();
                 do {
-                    while (chose != 0) {
+                    while (GameController.chose != 0) {
                         player.playerStatus(word);
                         menuWord();
-                        chose = in.nextInt();
-                        switch (chose) {
+                        switch (GameController.chose) {
                             case 1:
                                 wordReset(word);
                                 break;
@@ -70,7 +72,6 @@ public class GameController {
                             default:
                                 System.out.println("Enter a valid number :");
                                 menuWord();
-                                chose = in.nextInt();
                                 break;
                         }
                         if (!word.testMistakes() || word.wonValidation()) {
@@ -78,12 +79,18 @@ public class GameController {
                         }
                     }
                     System.out.println("Do you want to play again ? press 1 or 0 to exit");
-                    chose = in.nextInt();
-                    if (chose == 1) {
+                    try {
+                        GameController.chose= in.nextInt();
+                    }
+                    catch (InputMismatchException e){
+                        errorInputMessage();
+                        GameController.chose=0;
+                    }
+                    if (GameController.chose == 1) {
                         wordReset(word);
                     }
 
-                } while (chose != 0);
+                } while (GameController.chose != 0);
                 break;
 
 
@@ -100,15 +107,34 @@ public class GameController {
 
     public static void playerMenu() {
         System.out.println("PRESS :\n 1->Start Game \n 0->GET OUT OF  THE PROGRAM");
+        try {
+            chose = in.nextInt();
+        } catch (InputMismatchException e) {
+            errorInputMessage();
+           playerMenu();
+        }
     }
 
     public static void menuWord() {
         System.out.println(Collors.TEXT_BRIGHT_GREEN + "PRESS :\n1->CHOSE TO Another  WORD \n2->GUESS A CHAR  \n3->GUESS A WORD  \n0->GET OUT OF THE PROGRAM");
+        try {
+            chose = in.nextInt();
+        } catch (InputMismatchException e) {
+            errorInputMessage();
+            menuWord();
+        }
     }
 
     public static void wordReset(Word word) {
         word.attemptsNrRemain = 11;
         word.mistakes = 0;
         word.setWord();
+    }
+
+
+
+
+    public static void errorInputMessage(){
+        System.out.println("your value is incorrect");
     }
 }
