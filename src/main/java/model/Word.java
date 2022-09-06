@@ -57,6 +57,6 @@ public class Word extends Words {
 
     public boolean testMistakes() {
 
-        return mistakes <= 11;
+        return mistakes < 11;
     }
 }
